@@ -53,11 +53,11 @@ button_x = WIDTH // 2 - button_width // 2
 button_y = HEIGHT // 2 + 40
 
 # Carregar as imagens
-paddle_image = pygame.image.load("images/player_1.png")
-paddle_image2 = pygame.image.load("images/player_2.png")
-ball_image = pygame.image.load("images/ball.png")
-background_image = pygame.image.load("images/texture.jpg")
-menu_background_image = pygame.image.load("images/background_menu.jpg")
+paddle_image = pygame.image.load("assets/images/player_1.png")
+paddle_image2 = pygame.image.load("assets/images/player_2.png")
+ball_image = pygame.image.load("assets/images/ball.png")
+background_image = pygame.image.load("assets/images/texture.jpg")
+menu_background_image = pygame.image.load("assets/images/background_menu.jpg")
 
 paddle_image = pygame.transform.scale(paddle_image, (rect_w, rect_h))
 paddle_image2 = pygame.transform.scale(paddle_image2, (rect_w, rect_h))
@@ -67,14 +67,14 @@ background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 menu_background_image = pygame.transform.scale(menu_background_image, (WIDTH, HEIGHT))
 
 # Carregar os sons
-pygame.mixer.music.load("sounds/track_sound.mp3")
-whistle_sound = pygame.mixer.Sound("sounds/apito.mp3")
-goal_sound = pygame.mixer.Sound("sounds/goal.wav") 
-ball_kick_sound = pygame.mixer.Sound("sounds/ball_kick.mp3") 
-click_menu_sound = pygame.mixer.Sound("sounds/click_menu_sound.mp3") 
-menu_music = pygame.mixer.music.load("sounds/track_sound_menu.mp3") 
-la_vem_mais_sound = pygame.mixer.Sound("sounds/la_vem_mais.mp3") 
-gol_da_alemanha_sound = pygame.mixer.Sound("sounds/gol-da-alemanha-1.mp3")  
+pygame.mixer.music.load("assets/sounds/track_sound.mp3")
+whistle_sound = pygame.mixer.Sound("assets/sounds/apito.mp3")
+goal_sound = pygame.mixer.Sound("assets/sounds/goal.wav") 
+ball_kick_sound = pygame.mixer.Sound("assets/sounds/ball_kick.mp3") 
+click_menu_sound = pygame.mixer.Sound("assets/sounds/click_menu_sound.mp3") 
+menu_music = pygame.mixer.music.load("assets/sounds/track_sound_menu.mp3") 
+la_vem_mais_sound = pygame.mixer.Sound("assets/sounds/la_vem_mais.mp3") 
+gol_da_alemanha_sound = pygame.mixer.Sound("assets/sounds/gol-da-alemanha-1.mp3")  
 
 def draw_menu():
     screen.blit(menu_background_image, (0, 0))  # Desenhar o fundo do menu
@@ -107,7 +107,7 @@ def reset_ball():
 def main_game():
     global rect_y, rect2_y, ball_x, ball_y, ball_speed_x, ball_speed_y, ball_moving, score, score2, paused, ball_moved
 
-    pygame.mixer.music.load("sounds/track_sound.mp3")  # Trilha sonora do jogo
+    pygame.mixer.music.load("assets/sounds/track_sound.mp3")  # Trilha sonora do jogo
     pygame.mixer.music.play(-1)  # -1 significa que a música será repetida indefinidamente
 
     running = True
@@ -227,7 +227,7 @@ def main_game():
 
 
 menu_active = True
-pygame.mixer.music.load("sounds/track_sound_menu.mp3")  # Carregar a trilha sonora do menu
+pygame.mixer.music.load("assets/sounds/track_sound_menu.mp3")  # Carregar a trilha sonora do menu
 pygame.mixer.music.play(-1)  # -1 significa que a música será repetida indefinidamente
 
 while menu_active:
