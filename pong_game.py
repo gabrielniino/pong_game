@@ -78,13 +78,10 @@ gol_da_alemanha_sound = pygame.mixer.Sound("assets/sounds/gol-da-alemanha-1.mp3"
 
 def draw_menu():
     screen.blit(menu_background_image, (0, 0))  # Desenhar o fundo do menu
-    # title_text = menu_title.render("Pong", True, selective_yellow)
     start_button = pygame.Rect(button_x, button_y, button_width, button_height)
     start_text = button_font.render("Iniciar o jogo", True, prussian_blue)
 
     pygame.draw.rect(screen, ut_orange, start_button)
-    # screen.blit(title_text, (WIDTH / 2 - title_text.get_width() / 2,
-    #                          HEIGHT / 2 - title_text.get_height() - 60))
     screen.blit(start_text, (button_x + (button_width - start_text.get_width()) / 2,
                              button_y + (button_height - start_text.get_height()) / 2))
 
@@ -103,6 +100,16 @@ def reset_ball():
     paused = False
     ball_moved = False
 
+def draw_end_screen(winner_text):
+    screen.blit(background_image, (0, 0))
+
+    text = menu_title.render(winner_text, True, selective_yellow)
+    screen.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2))
+    
+    play_again_button = pygame.Rect(button_x, button_y, button_width, button_height)
+
+    pygame.display.flip()
+    return play_again_button
 
 def main_game():
     global rect_y, rect2_y, ball_x, ball_y, ball_speed_x, ball_speed_y, ball_moving, score, score2, paused, ball_moved
@@ -166,7 +173,7 @@ def main_game():
                 goal_sound.play() 
                 reset_ball() 
                 played_la_vem_mais = False
-                if score == 2:
+                if score >= 2:
                     gol_da_alemanha_sound.play()
 
             if ball_x - ball_radius <= 0:
@@ -174,7 +181,7 @@ def main_game():
                 goal_sound.play()
                 reset_ball()
                 played_la_vem_mais = False
-                if score2 == 2:
+                if score2 >= 2:
                     gol_da_alemanha_sound.play()
 
             # Colisão com os jogadores
@@ -220,6 +227,14 @@ def main_game():
             pause_text = menu_title.render("PAUSE", True, white)
             screen.blit(pause_text, (WIDTH // 2 - pause_text.get_width() // 2, HEIGHT // 2 - pause_text.get_height() // 2))
 
+        if score >= 3:
+            draw_end_screen("Jogador 1 Venceu!")
+            pygame.mixer.music.stop()
+
+        if score2 >= 3:
+            draw_end_screen("Jogador 2 Venceu!")
+            pygame.mixer.music.stop()
+
         # Atualizar a tela
         pygame.display.flip()
 
@@ -228,7 +243,7 @@ def main_game():
 
 menu_active = True
 pygame.mixer.music.load("assets/sounds/track_sound_menu.mp3")  # Carregar a trilha sonora do menu
-pygame.mixer.music.play(-1)  # -1 significa que a música será repetida indefinidamente
+pygame.mixer.music.play(-1)
 
 while menu_active:
     start_button = draw_menu()
@@ -237,9 +252,9 @@ while menu_active:
             menu_active = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if start_button.collidepoint(event.pos):
-                click_menu_sound.play()  # Tocar o som do clique do menu
-                pygame.time.wait(500)  # Pequena pausa para garantir que o som seja ouvido antes de iniciar o jogo
-                pygame.mixer.music.stop()  # Parar a trilha sonora do menu
+                click_menu_sound.play()
+                pygame.time.wait(500)
+                pygame.mixer.music.stop()
                 menu_active = False
                 main_game()
 
